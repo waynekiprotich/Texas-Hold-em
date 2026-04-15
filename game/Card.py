@@ -1,13 +1,10 @@
-'''
+"""
 Forces valid card values only.
 Converts input to uppercase.
-Prevents invalid cards ,'joker
+Prevents invalid cards, e.g., 'joker'
 Stores rank + suit in an object
 Print card details
-
-'''
-
-
+"""
 
 class Card():
 
@@ -38,11 +35,22 @@ class Card():
         self.rank = rankUpper
         self.suite = suiteUpper
 
-def printCard(self):
-        print("Rank", self.rank)
-        print("Suite", self.suite)
+    def printCard(self):
+        print("Rank:", self.rank)
+        print("Suite:", self.suite)
+        print("-" * 15)
 
 if __name__ == "__main__":
-    card1 = Card(suite="Joker", rank="A")
+    
+    # Testing a valid card
+    print("Testing Valid Card:")
     card2 = Card(suite="SPADE", rank="5")
+    card2.printCard()
 
+    # Testing an invalid card (Joker)
+    print("Testing Invalid Card:")
+    try:
+        card1 = Card(suite="Joker", rank="A")
+        card1.printCard()
+    except TypeError as e:
+        print(f"Successfully caught error: {e}")
