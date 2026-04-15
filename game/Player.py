@@ -1,5 +1,5 @@
-import random   
-import time     
+import random
+import time
 
 class Player():
 
@@ -61,7 +61,7 @@ class Player():
             return True
             
         diff = abs(diff)
-        if self.amount > diff:
+        if diff > self.amount:
             print("Cant call, not enough money")
             return "l"
             
@@ -84,6 +84,45 @@ class Player():
         print(f"I raise by amount ", raise_amount)
         self.bet = raise_amount
         return raise_amount
+
+    def auto_call_raise(self, player, k):
+        # pc logic to respond to a human player's bet
+        print("Pc thinking. What to do...")
+        human = player
+        time.sleep(2)
+        to_do = random.randint(1, 2)
+
+        print("Human Bet ", human.bet)
+        print("PC bet is  ", self.bet)
+        
+        # calculate difference to match
+        diff = human.bet - self.bet
+        print("Diff is ", diff)
+
+        if diff < 0:
+            print("I Call your bet")
+            return
+        
+        if diff > self.amount:
+            print("I fold. Bet too high")
+            return "l"
+        
+        # calculate raise
+        raise_amount = random.randint(1, 30)
+        raise_stake = diff + raise_amount
+
+        if raise_stake > self.amount or k >= 3:
+            to_do = 1
+
+        # Match the bet (action 1)
+        if to_do == 1:
+            self.bet = diff
+            print(f"I call your bet. I bet ", diff)
+            return
+        
+        # Raise the bet (action 2)
+        self.bet = raise_stake
+        print(f"I see your action. I raise you by {raise_amount} ")
 
     def auto_match_or_raise(self, amount):
         # comp logic for pc player decision making
